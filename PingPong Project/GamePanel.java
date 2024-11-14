@@ -68,6 +68,20 @@ public class GamePanel extends JPanel implements Runnable{
 	    }
 	     if (ball.y >= GAME_HEIGHT-BALL_DIAMETER
 		   ball.setYDirection(-ball.yVelocity);
+
+	    //bounces ball off paddles
+
+	    if (ball.inersects(paddle1)){
+		    ball.xVelocity = Math.abs(ball.xVelocity);
+		    //if you want to increment the speed after it hits a players paddle
+		//ball.xVelocity++;
+		    
+		    //this also speeds up the speed of the paddle when hit except its the y value
+		    //if(ball.yVelocity>0)
+			    //ball.yVelocity++;
+		    else
+			    ball.yVelocity--;
+	    }
 	    
 	    // stops paddles at windo aeges
 	    if(paddle1.y<=0)
