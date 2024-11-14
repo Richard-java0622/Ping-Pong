@@ -52,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void draw(Graphics g) {
 	    paddle1.draw(g);
 	    paddle2.draw(g);
-	    
+	    ball.draw(g);
 
     }
     public void move() {
@@ -61,7 +61,15 @@ public class GamePanel extends JPanel implements Runnable{
 	    ball.move();
     }
     public void checkCollisions() {
-// stops paddles at windo aeges
+//bounce ball of top and bottom window edges
+
+	    if(ball.y <=0) {
+		    ball.setYDirection(-ball.yVelocity);
+	    }
+	     if (ball.y >= GAME_HEIGHT-BALL_DIAMETER
+		   ball.setYDirection(-ball.yVelocity);
+	    
+	    // stops paddles at windo aeges
 	    if(paddle1.y<=0)
 		    paddle1.y=0;
 	    if(paddle1.y >= (GANE_HEIGHT-PADLE_HEIOGHT))
