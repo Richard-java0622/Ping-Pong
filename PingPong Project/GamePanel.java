@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void newBall() {
 	random = new Random();
-	    ball = new Ball((GAME_WIDTH/2)-(BALL_DIAMETER/2),(GAME_HEIGHT/2-BALL_DIAMETER/2),BALL_DIAMETER,BALL_DIAMETER);
+	    ball = new Ball((GAME_WIDTH/2)-(BALL_DIAMETER/2),(GAME_HEIGHT/2-BALL_DIAMETER/2),random.nextInt(GAME_HEIGTH-BALL_DIAMETER),BALL_DIAMETER,BALL_DIAMETER);
     } 
     public void newPaddles() {
 	    paddle1 = new Paddle(0,(Game_HEIGHT/2)-(PADDLE_HEIGHT/2),PADDLE_WIDTH,PADDLE_HEIGHT,1);
@@ -74,14 +74,34 @@ public class GamePanel extends JPanel implements Runnable{
 	    if (ball.inersects(paddle1)){
 		    ball.xVelocity = Math.abs(ball.xVelocity);
 		    //if you want to increment the speed after it hits a players paddle
-		//ball.xVelocity++;
+		// ball.xVelocity++;
+		    
 		    
 		    //this also speeds up the speed of the paddle when hit except its the y value
 		    //if(ball.yVelocity>0)
 			    //ball.yVelocity++;
 		    else
 			    ball.yVelocity--;
+	    	    ball.setXDirection(ball.xVelocity);
+	    	    ball.setYDirection(ball.yVelocity);
+	    
 	    }
+	 if (ball.inersects(paddle2)){
+		    ball.xVelocity = Math.abs(ball.xVelocity);
+		    //if you want to increment the speed after it hits a players paddle
+		 ball.xVelocity++;
+		    
+		    
+		    //this also speeds up the speed of the paddle when hit except its the y value
+		    if(ball.yVelocity>0)
+			ball.yVelocity++;
+		    else
+			    ball.yVelocity--;
+	    	    ball.setXDirection(-ball.xVelocity);
+	    	    ball.setYDirection(ball.yVelocity);
+	    
+	    }
+	
 	    
 	    // stops paddles at windo aeges
 	    if(paddle1.y<=0)
@@ -92,6 +112,21 @@ public class GamePanel extends JPanel implements Runnable{
 		    paddle2.y=0;
 	    if(paddle2.y >= (GANE_HEIGHT-PADLE_HEIOGHT))
 		    paddle2.y = GAME_HEIGHT-PADDLE_HEIGHT;
+		//give a player 1 points and creats new paddles & ball
+		if(ball.x <=0){
+			score.player2++;
+			newPaddles():
+			newBall();
+			System.out.println("Player 2:"+score.player2);
+			
+		}
+			if(ball.x >= GAME_WIDTH-BALL_DIAMETER){
+			score.player1++;
+			newPaddles():
+			newBall();
+			System.out.println("Player 1:"+score.player1);
+			
+		}
     }
     public void run() {
 	    //game loop
